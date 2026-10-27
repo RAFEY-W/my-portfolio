@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aarav Sen | AI Data Specialist & B.Tech CSE Portfolio</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Space Grotesk, Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Three.js (r128) for the 3D Walking Stick Figure -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        midnight: '#070812',
+                        surface: '#0f1123',
+                        neonCyan: '#00f2fe',
+                        neonViolet: '#8b5cf6',
+                        neonPink: '#ff4b8b',
+                        neonLime: '#10b981',
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        /* ==========================================================================
+           CUSTOM CSS: CANVA / PINTEREST / FIGMA AURORA & BENTO GLASSMORPHISM
+           ========================================================================== */
+        :root {
+            --bg-dark: #070812;
+            --cyan: #00f2fe;
+            --violet: #8b5cf6;
+            --pink: #ff4b8b;
+            --amber: #f59e0b;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow-x: hidden;
+            selection-background-color: #8b5cf6;
+        }
+
+        /* Vibrant Aurora Mesh Background */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 12% 18%, rgba(0, 242, 254, 0.16) 0%, transparent 38%),
+                radial-gradient(circle at 86% 15%, rgba(255, 75, 139, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 50% 55%, rgba(139, 92, 246, 0.14) 0%, transparent 48%),
+                radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+                #070812;
+        }
+
+        /* Subtle Figma Dot/Grid Overlay */
+        .figma-grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+        }
+
+        /* Bento Glass Card */
+        .bento-card {
+            background: linear-gradient(145deg, rgba(22, 25, 48, 0.72), rgba(12, 14, 28, 0.85));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(0, 242, 254, 0.38);
+            box-shadow: 0 24px 60px rgba(0, 242, 254, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        }
+
+        /* Circular Anime Avatar Spinning Neon Ring */
+        .avatar-ring-wrapper {
+            position: relative;
+            border-radius: 9999px;
+            padding: 5px;
+            background: linear-gradient(135deg, #00f2fe, #8b5cf6, #ff4b8b, #00f2fe);
+            background-size: 300% 300%;
+            animation: gradientFlow 5s ease infinite;
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.35), 0 0 70px rgba(255, 75, 139, 0.2);
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Gradient Text Utility */
+        .text-gradient-vibrant {
+            background: linear-gradient(95deg, #00f2fe 0%, #a855f7 50%, #ff4b8b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Empty Future Project Dashed Neon Card */
+        .empty-project-slot {
+            background: linear-gradient(160deg, rgba(16, 19, 38, 0.55), rgba(10, 12, 24, 0.7));
+            border: 2px dashed rgba(139, 92, 246, 0.4);
+            transition: all 0.35s ease;
+        }
+        .empty-project-slot:hover {
+            border-color: #00f2fe;
+            background: linear-gradient(160deg, rgba(0, 242, 254, 0.07), rgba(139, 92, 246, 0.1));
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(0, 242, 254, 0.12);
+        }
+
+        /* Fixed Bottom 3D Stick Figure Stage */
+        #walker-stage-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 155px;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        #walker-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        /* Speech Bubble attached to 3D Stick Figure X Coordinate */
+        #walker-speech-bubble {
+            position: fixed;
+            bottom: 122px;
+            left: 10%;
+            transform: translateX(-50%);
+            z-index: 45;
+            pointer-events: none;
+            transition: left 0.08s linear, transform 0.2s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070812;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00f2fe, #8b5cf6, #ff4b8b);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-neonViolet selection:text-white pb-44">
+
+    <!-- ============================================================================
+         EASY EDIT CONFIGURATION (CHANGE YOUR NAME, EMAIL, UNI & PHOTO HERE!)
+         ============================================================================ -->
+    <script>
+        /**
+         * PORTFOLIO_CONFIG:
+         * Edit the values below anytime to personalize your portfolio permanently.
+         * You can also replace `avatarUrl` with a relative path like "./my-photo.jpg"
+         * once you put your image inside your `Users/<YourName>/portfolio/public` folder!
+         */
+        const PORTFOLIO_CONFIG = {
+            name: "Aarav Sen",
+            email: "aarav.sen.dev@example.com",
+            roleBadge: "AI Data Specialist & 3rd Year B.Tech CSE",
+            headlinePrefix: "Training Next-Gen AI & Engineering",
+            headlineGradient: "Vibrant Web Systems.",
+            university: "Apex Institute of Technology & Engineering",
+            degree: "B.Tech in Computer Science & Engineering (3rd Year Undergraduate)",
+            duration: "2024 – 2028 (Currently in 6th Semester)",
+            cgpaOrStatus: "Active Undergraduate • Placement & GATE Prep Track",
+            location: "India • Open to Remote AI & SWE Roles",
+            githubUrl: "https://github.com",
+            linkedinUrl: "https://linkedin.com",
+            // Default built-in high-contrast Manga/Anime SVG data URI (or put your own image path e.g. 'my-photo.png')
+            avatarPreset: "manga_cyber"
+        };
+    </script>
+
+    <!-- Background Layers -->
+    <div class="aurora-bg"></div>
+    <div class="figma-grid-overlay"></div>
+
+    <!-- Top Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1.5 z-50 bg-slate-900/80">
+        <div id="top-progress-bar" class="h-full w-0 bg-gradient-to-r from-neonCyan via-neonViolet to-neonPink shadow-[0_0_15px_#00f2fe]"></div>
+    </div>
+
+    <!-- ============================================================================
+         STICKY GLASS NAVIGATION BAR (SINGLE-PAGE SMOOTH SCROLL)
+         ============================================================================ -->
+    <header class="sticky top-4 z-40 mx-auto max-w-6xl px-4">
+        <nav class="bento-card rounded-2xl px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Identity -->
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neonCyan via-neonViolet to-neonPink p-[2px]">
+                    <div class="w-full h-full bg-midnight rounded-[10px] flex items-center justify-center font-display font-bold text-lg text-white group-hover:bg-transparent transition">
+                        AS
+                    </div>
+                </div>
+                <div>
+                    <span id="nav-name" class="font-display font-bold text-white tracking-tight text-base block leading-none">Aarav Sen</span>
+                    <span class="font-mono text-[11px] text-neonCyan">~/users/portfolio</span>
+                </div>
+            </a>
+
+            <!-- Single-Page Section Links -->
+            <div class="hidden md:flex items-center gap-1 bg-slate-950/60 border border-white/10 rounded-xl p-1">
+                <a href="#hero" data-nav="hero" class="nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-white bg-white/10 transition">01. Intro</a>
+                <a href="#experience" data-nav="experience" class="nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">02. AI Experience</a>
+                <a href="#education" data-nav="education" class="nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">03. B.Tech CSE</a>
+                <a href="#projects" data-nav="projects" class="nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">04. Future Projects</a>
+                <a href="#contact" data-nav="contact" class="nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">05. Contact</a>
+            </div>
+
+            <!-- Action Buttons: Express.js Folder Setup & Live Customizer -->
+            <div class="flex items-center gap-2">
+                <button onclick="openModal('express-modal')" class="px-3 py-2 rounded-xl text-xs font-mono font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition flex items-center gap-1.5" title="View Users/portfolio Folder & Express.js Setup">
+                    <i class="fa-brands fa-node-js text-sm"></i>
+                    <span class="hidden sm:inline">Express.js Setup</span>
+                </button>
+                <button onclick="openModal('customize-modal')" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-neonCyan/20 via-neonViolet/20 to-neonPink/20 text-white border border-neonCyan/40 hover:border-neonCyan transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-sliders text-neonCyan"></i>
+                    <span>Customize Info</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ============================================================================
+         MAIN SINGLE-PAGE CONTENT CONTAINER
+         ============================================================================ -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 space-y-24">
+
+        <!-- ========================================================================
+             SECTION 01: HERO BENTO SECTION WITH CIRCULAR ANIME/MANGA AVATAR
+             ======================================================================== -->
+        <section id="hero" class="scroll-mt-28">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+                <!-- Left Main Hero Bento Card (8 Cols) -->
+                <div class="lg:col-span-8 bento-card rounded-3xl p-6 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+                    <!-- Decorative Figma Floating Tag -->
+                    <div class="hidden sm:flex items-center gap-1.5 absolute top-5 right-6 px-3 py-1 rounded-full bg-neonViolet/15 border border-neonViolet/40 text-neonViolet font-mono text-[11px]">
+                        <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span>
+                        <span>Figma / Pinterest Bento UI v2.5</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Status Pill -->
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-neonCyan">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span id="hero-role-badge">AI Data Specialist & 3rd Year B.Tech CSE</span>
+                        </div>
+
+                        <!-- Main Display Heading -->
+                        <h1 class="font-display text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tight leading-[1.12] text-white">
+                            Hi, I'm <span id="hero-name" class="underline decoration-neonPink/60 decoration-wavy underline-offset-8">Aarav Sen</span>.<br />
+                            <span id="hero-headline-prefix" class="text-slate-200">Training Next-Gen AI &amp; Engineering</span>
+                            <span id="hero-headline-gradient" class="text-gradient-vibrant block mt-1">Vibrant Web Systems.</span>
+                        </h1>
+
+                        <!-- Bio Description -->
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                            3rd-year <strong class="text-white font-semibold">B.Tech Computer Science &amp; Engineering</strong> undergraduate at 
+                            <span id="hero-uni-inline" class="text-neonCyan font-medium">Apex Institute of Technology &amp; Engineering</span>. 
+                            Experienced in RLHF, code evaluation, and LLM alignment across 
+                            <span class="px-2 py-0.5 rounded-md bg-neonCyan/10 text-neonCyan font-mono text-sm">DataAnnotation</span>, 
+                            <span class="px-2 py-0.5 rounded-md bg-neonViolet/15 text-purple-300 font-mono text-sm">Outlier</span>, and 
+                            <span class="px-2 py-0.5 rounded-md bg-neonPink/15 text-pink-300 font-mono text-sm">micro1</span>.
+                        </p>
+                    </div>
+
+                    <!-- Bottom CTA & Quick Copy Email Row -->
+                    <div class="pt-8 mt-6 border-t border-white/10 flex flex-wrap items-center gap-3">
+                        <a href="#experience" class="px-6 py-3.5 rounded-2xl font-display font-semibold text-sm bg-gradient-to-r from-neonCyan via-neonViolet to-neonPink text-slate-950 shadow-lg shadow-neonCyan/20 hover:opacity-95 transition flex items-center gap-2">
+                            <span>Explore Work Experience</span>
+                            <i class="fa-solid fa-arrow-down-long"></i>
+                        </a>
+
+                        <!-- Copyable Default Email Pill -->
+                        <button onclick="copyEmailToClipboard()" class="px-4 py-3.5 rounded-2xl font-mono text-xs sm:text-sm bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-white/15 transition flex items-center gap-2.5 group">
+                            <i class="fa-regular fa-envelope text-neonPink"></i>
+                            <span id="hero-email-text">aarav.sen.dev@example.com</span>
+                            <span id="copy-badge" class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-neonCyan group-hover:bg-neonCyan group-hover:text-slate-950 transition">Copy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Circular Anime/Manga Photo Bento Card (4 Cols) -->
+                <div class="lg:col-span-4 bento-card rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-between text-center relative overflow-hidden">
+                    <!-- Top Label -->
+                    <div class="w-full flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>AVATAR_FRAME // 50% RADIUS</span>
+                        <span class="text-neonPink"><i class="fa-solid fa-circle text-[8px] mr-1"></i>LIVE</span>
+                    </div>
+
+                    <!-- CIRCULAR ANIME / MANGA PHOTO FRAME -->
+                    <div class="my-3 relative group">
+                        <div class="avatar-ring-wrapper w-48 h-48 sm:w-52 sm:h-52 mx-auto">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-slate-950 relative flex items-center justify-center">
+                                <!-- Circular Image Element (Easily replaceable in code or via Swap button) -->
+                                <img 
+                                    id="profile-avatar-img" 
+                                    src="" 
+                                    alt="Circular Anime/Manga Profile Avatar" 
+                                    class="w-full h-full object-cover rounded-full transition duration-500 group-hover:scale-105"
+                                />
+                                <!-- Hover Overlay for Instant Photo Upload -->
+                                <label for="avatar-file-input" class="absolute inset-0 bg-slate-950/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full flex flex-col items-center justify-center cursor-pointer p-4 text-center">
+                                    <i class="fa-solid fa-camera-rotate text-2xl text-neonCyan mb-1.5"></i>
+                                    <span class="text-xs font-semibold text-white">Upload Your Own Photo</span>
+                                    <span class="text-[10px] text-slate-300 mt-0.5">Circular Auto-Crop</span>
+                                </label>
+                                <input id="avatar-file-input" type="file" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)" />
+                            </div>
+                        </div>
+
+                        <!-- Floating Anime Style Switcher Pill -->
+                        <div class=" -bottom-3 left-1/2 -translate-x-1/2 relative inline-flex items-center gap-1 bg-slate-900/95 border border-white/15 px-2.5 py-1 rounded-full shadow-lg">
+                            <span class="text-[10px] font-mono text-slate-400 mr-1">Anime Art:</span>
+                            <button onclick="setAnimePreset('manga_cyber')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-slate-900 to-neonCyan text-[10px] font-bold text-white border border-white/30" title="High-Contrast Manga Ink">1</button>
+                            <button onclick="setAnimePreset('neon_shonen')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-neonViolet to-neonPink text-[10px] font-bold text-white border border-white/30" title="Neon Shonen Cyber">2</button>
+                            <button onclick="setAnimePreset('dark_seinen')" class="w-5 h-5 rounded-full bg-gradient-to-tr from-zinc-950 to-red-500 text-[10px] font-bold text-white border border-white/30" title="Minimalist Dark Seinen">3</button>
+                        </div>
+                    </div>
+
+                    <!-- Helper Caption for Replacing Later -->
+                    <div class="w-full mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                        <label for="avatar-file-input" class="text-neonCyan hover:underline cursor-pointer flex items-center gap-1.5 font-medium">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Swap Circular Photo</span>
+                        </label>
+                        <span class="font-mono text-[11px] text-slate-400">border-radius: 50%</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sub-Hero Quick Bento Metrics Strip -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="bento-card rounded-2xl p-4 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-neonCyan/15 border border-neonCyan/30 flex items-center justify-center text-neonCyan text-lg shrink-0">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-xl text-white">3 Platforms</div>
+                        <div class="text-xs text-slate-400">DataAnnotation • Outlier • micro1</div>
+                    </div>
+                </div>
+
+                <div class="bento-card rounded-2xl p-4 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-neonViolet/15 border border-neonViolet/30 flex items-center justify-center text-purple-300 text-lg shrink-0">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-xl text-white">3rd Year CSE</div>
+                        <div class="text-xs text-slate-400">B.Tech Undergraduate</div>
+                    </div>
+                </div>
+
+                <div class="bento-card rounded-2xl p-4 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-neonPink/15 border border-neonPink/30 flex items-center justify-center text-pink-400 text-lg shrink-0">
+                        <i class="fa-solid fa-code-branch"></i>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-xl text-white">RLHF &amp; SFT</div>
+                        <div class="text-xs text-slate-400">Code &amp; Reasoning Eval</div>
+                    </div>
+                </div>
+
+                <div class="bento-card rounded-2xl p-4 flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-300 text-lg shrink-0">
+                        <i class="fa-solid fa-person-walking"></i>
+                    </div>
+                    <div>
+                        <div class="font-display font-bold text-xl text-white" id="scroll-percent-stat">0% Walked</div>
+                        <div class="text-xs text-slate-400">Scroll to Walk Stickman →</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================
+             SECTION 02: WORK EXPERIENCE (AI DATA ANNOTATOR — 3 PLATFORMS)
+             ======================================================================== -->
+        <section id="experience" class="scroll-mt-28 space-y-8">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neonCyan mb-2">
+                        <span>// 02. WORK EXPERIENCE</span>
+                        <span class="w-12 h-[1px] bg-neonCyan/50"></span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">
+                        AI Data Annotation &amp; <span class="text-gradient-vibrant">LLM Alignment</span>
+                    </h2>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md">
+                    Hands-on industry experience evaluating frontier Large Language Models, verifying code generation, and curating high-precision datasets.
+                </p>
+            </div>
+
+            <!-- 3-Column Vibrant Experience Bento Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- 1. DataAnnotation Card -->
+                <article class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-36 h-36 bg-neonCyan/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div>
+                        <!-- Platform Header -->
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-neonCyan/15 border border-neonCyan/40 flex items-center justify-center text-neonCyan font-display font-bold text-xl">
+                                    DA
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-white">DataAnnotation</h3>
+                                    <p class="font-mono text-xs text-neonCyan">AI Data Annotator • Remote</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                                Active
+                            </span>
+                        </div>
+
+                        <!-- Role Title -->
+                        <div class="mb-4">
+                            <div class="text-sm font-semibold text-slate-100">RLHF Code &amp; STEM Preference Evaluator</div>
+                            <div class="text-xs text-slate-400 mt-0.5">LLM Alignment &amp; Adversarial Testing</div>
+                        </div>
+
+                        <!-- Bullet Responsibilities -->
+                        <ul class="space-y-2.5 text-sm text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-neonCyan mt-1 text-xs"></i>
+                                <span>Conducted side-by-side <strong class="text-white">RLHF preference ranking</strong> on complex programming (Python, C++, JS) and algorithmic prompts.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-neonCyan mt-1 text-xs"></i>
+                                <span>Designed adversarial prompts to expose reasoning flaws, logic bugs, and subtle hallucinations in frontier models.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-neonCyan mt-1 text-xs"></i>
+                                <span>Verified code execution correctness, time/space complexity, and edge-case handling with detailed rubric rationales.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom Tags -->
+                    <div class="pt-5 mt-6 border-t border-white/10 flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">RLHF Ranking</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">Code Verification</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">Prompt Design</span>
+                    </div>
+                </article>
+
+                <!-- 2. Outlier Card -->
+                <article class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-36 h-36 bg-neonViolet/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div>
+                        <!-- Platform Header -->
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-neonViolet/20 border border-neonViolet/40 flex items-center justify-center text-purple-300 font-display font-bold text-xl">
+                                    OL
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-white">Outlier</h3>
+                                    <p class="font-mono text-xs text-purple-300">AI Model Trainer • Remote</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                                Specialist
+                            </span>
+                        </div>
+
+                        <!-- Role Title -->
+                        <div class="mb-4">
+                            <div class="text-sm font-semibold text-slate-100">AI Data Annotator &amp; SFT Quality Specialist</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Multi-Turn Rubric Grading &amp; Response Rewriting</div>
+                        </div>
+
+                        <!-- Bullet Responsibilities -->
+                        <ul class="space-y-2.5 text-sm text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1 text-xs"></i>
+                                <span>Authored gold-standard <strong class="text-white">Supervised Fine-Tuning (SFT)</strong> responses for computer science and analytical tasks.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1 text-xs"></i>
+                                <span>Audited multi-turn conversations across strict dimensions: instruction following, truthfulness, formatting, and tone.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-purple-400 mt-1 text-xs"></i>
+                                <span>Performed step-by-step Chain-of-Thought (CoT) critique to pinpoint exact mathematical or logical divergence points.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom Tags -->
+                    <div class="pt-5 mt-6 border-t border-white/10 flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">SFT Rewriting</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">Hallucination Audit</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">CoT Evaluation</span>
+                    </div>
+                </article>
+
+                <!-- 3. micro1 Card -->
+                <article class="bento-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-36 h-36 bg-neonPink/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div>
+                        <!-- Platform Header -->
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-neonPink/15 border border-neonPink/40 flex items-center justify-center text-pink-300 font-display font-bold text-xl">
+                                    m1
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-white">micro1</h3>
+                                    <p class="font-mono text-xs text-pink-300">AI Data Annotator • Remote</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-pink-500/15 text-pink-300 border border-pink-500/30">
+                                Certified
+                            </span>
+                        </div>
+
+                        <!-- Role Title -->
+                        <div class="mb-4">
+                            <div class="text-sm font-semibold text-slate-100">Human-in-the-Loop Dataset &amp; QA Specialist</div>
+                            <div class="text-xs text-slate-400 mt-0.5">High-Precision Labeling &amp; Benchmark Curation</div>
+                        </div>
+
+                        <!-- Bullet Responsibilities -->
+                        <ul class="space-y-2.5 text-sm text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-pink-400 mt-1 text-xs"></i>
+                                <span>Curated structured datasets and validated technical annotations with high inter-annotator agreement scores.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-pink-400 mt-1 text-xs"></i>
+                                <span>Evaluated structured JSON schemas, function-calling outputs, and API tool-use traces generated by AI agents.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-pink-400 mt-1 text-xs"></i>
+                                <span>Maintained strict quality benchmarks for post-training evaluation pipelines and domain-specific test suites.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom Tags -->
+                    <div class="pt-5 mt-6 border-t border-white/10 flex flex-wrap gap-1.5">
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">Dataset Curation</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">JSON / Tool-Use QA</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300">Benchmarking</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================
+             SECTION 03: EDUCATION (3RD YEAR B.TECH CSE) & TECHNICAL TOOLKIT
+             ======================================================================== -->
+        <section id="education" class="scroll-mt-28 space-y-8">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neonViolet mb-2">
+                        <span>// 03. EDUCATION &amp; SKILLS</span>
+                        <span class="w-12 h-[1px] bg-neonViolet/50"></span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">
+                        Academic Foundation &amp; <span class="text-gradient-vibrant">CSE Stack</span>
+                    </h2>
+                </div>
+                <button onclick="openModal('customize-modal')" class="self-start md:self-auto text-xs font-mono text-neonCyan hover:underline flex items-center gap-1.5">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <span>Click to change University name</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left University Qualification Card (7 Cols) -->
+                <div class="lg:col-span-7 bento-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                    <div class="space-y-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span id="edu-duration-badge" class="px-3.5 py-1 rounded-full text-xs font-mono bg-neonCyan/15 text-neonCyan border border-neonCyan/30">
+                                2024 – 2028 (Current 3rd Year)
+                            </span>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono bg-white/5 text-slate-300 border border-white/10">
+                                Undergraduate Degree
+                            </span>
+                        </div>
+
+                        <div>
+                            <h3 id="edu-degree-title" class="font-display text-2xl sm:text-3xl font-bold text-white">
+                                Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering
+                            </h3>
+                            <p class="text-base sm:text-lg text-neonPink font-medium mt-1.5 flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns text-sm"></i>
+                                <span id="edu-uni-name">Apex Institute of Technology &amp; Engineering</span>
+                            </p>
+                        </div>
+
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            Currently a <strong class="text-white">3rd-year CSE undergraduate</strong> focusing on core computer science systems, algorithmic problem solving, full-stack web protocols, and decentralized AI architectures.
+                        </p>
+
+                        <!-- Core Coursework Grid -->
+                        <div class="pt-2">
+                            <div class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-3">Core B.Tech CSE Coursework</div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-diagram-project text-neonCyan"></i>
+                                    <span>Data Structures &amp; Algo</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-network-wired text-neonViolet"></i>
+                                    <span>Computer Networks (TCP/IP, HTTP)</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-microchip text-neonPink"></i>
+                                    <span>Operating Systems</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-database text-emerald-400"></i>
+                                    <span>DBMS &amp; SQL</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-cubes text-amber-400"></i>
+                                    <span>OOP &amp; System Design</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-medium text-slate-200 flex items-center gap-2">
+                                    <i class="fa-solid fa-robot text-cyan-300"></i>
+                                    <span>AI &amp; ML Fundamentals</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
+                        <span>STATUS: 3RD YEAR UNDERGRADUATE</span>
+                        <span class="text-emerald-400">● READY FOR INTERNSHIPS &amp; DRIVES</span>
+                    </div>
+                </div>
+
+                <!-- Right Skills & Creative Stack Bento Card (5 Cols) -->
+                <div class="lg:col-span-5 bento-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                    <div>
+                        <h3 class="font-display text-xl font-bold text-white mb-1">Technical &amp; Creative Stack</h3>
+                        <p class="text-xs text-slate-400">Languages, frameworks, and tools in my active workflow.</p>
+                    </div>
+
+                    <!-- Skill Category 1 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-mono text-neonCyan">
+                            <span>LANGUAGES &amp; CORE</span>
+                            <span>C++ / Python / JS</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">C / C++</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Python</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">JavaScript (ES6+)</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">SQL</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Category 2 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-mono text-purple-300">
+                            <span>WEB, UI/UX &amp; 3D</span>
+                            <span>Express.js / CSS3 / Figma</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Node.js &amp; Express.js</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">HTML5 &amp; Modern CSS3</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Tailwind CSS</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Figma UI/UX</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Three.js WebGL</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Category 3 -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-mono text-pink-300">
+                            <span>AI &amp; NEXT-GEN SYSTEMS</span>
+                            <span>RLHF / Web3 / Networks</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">RLHF &amp; SFT Evaluation</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Prompt Engineering</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">HTTP / TCP / IP</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-white">Decentralized AI &amp; Blockchain</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================
+             SECTION 04: FUTURE PROJECTS SECTION (INTENTIONALLY EMPTY / READY SLOTS)
+             ======================================================================== -->
+        <section id="projects" class="scroll-mt-28 space-y-8">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neonPink mb-2">
+                        <span>// 04. PROJECTS SHOWCASE</span>
+                        <span class="w-12 h-[1px] bg-neonPink/50"></span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">
+                        Future <span class="text-gradient-vibrant">Project Slots</span>
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Currently kept empty for upcoming engineering builds. Drop your future projects right into these ready-made Bento slots!
+                    </p>
+                </div>
+
+                <!-- Interactive Helper: Preview how a populated card looks -->
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleSampleProjectPreview()" id="sample-project-btn" class="px-4 py-2.5 rounded-xl text-xs font-mono font-medium bg-white/5 hover:bg-white/10 text-neonCyan border border-neonCyan/30 transition flex items-center gap-2">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Preview Sample Filled Slot</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3 Empty Future Project Slots Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- SLOT 01 (Can toggle between Empty Placeholder and Sample Preview) -->
+                <div id="project-slot-1" class="empty-project-slot rounded-3xl p-7 min-h-[290px] flex flex-col items-center justify-center text-center relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-neonCyan/10 border border-neonCyan/30 flex items-center justify-center text-neonCyan text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-[11px] font-mono bg-white/5 text-neonCyan border border-white/10 mb-2">
+                        PROJECT_SLOT_01 // EMPTY
+                    </span>
+                    <h3 class="font-display font-bold text-lg text-white">Reserved for Future Project #1</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+                        Ready for your first full-stack Express.js, AI tool, or CSE capstone project. Edit <code class="text-neonCyan">#project-slot-1</code> in <code class="text-neonCyan">index.html</code> when ready.
+                    </p>
+                </div>
+
+                <!-- SLOT 02 (Empty Placeholder) -->
+                <div class="empty-project-slot rounded-3xl p-7 min-h-[290px] flex flex-col items-center justify-center text-center relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-neonViolet/10 border border-neonViolet/30 flex items-center justify-center text-purple-300 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-[11px] font-mono bg-white/5 text-purple-300 border border-white/10 mb-2">
+                        PROJECT_SLOT_02 // EMPTY
+                    </span>
+                    <h3 class="font-display font-bold text-lg text-white">Reserved for Future Project #2</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+                        Space reserved for an upcoming AI Evaluation Dashboard, Networking Utility, or Web3 App.
+                    </p>
+                </div>
+
+                <!-- SLOT 03 (Empty Placeholder) -->
+                <div class="empty-project-slot rounded-3xl p-7 min-h-[290px] flex flex-col items-center justify-center text-center relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-neonPink/10 border border-neonPink/30 flex items-center justify-center text-pink-300 text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-[11px] font-mono bg-white/5 text-pink-300 border border-white/10 mb-2">
+                        PROJECT_SLOT_03 // EMPTY
+                    </span>
+                    <h3 class="font-display font-bold text-lg text-white">Reserved for Future Project #3</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+                        Keep building! Uncomment the project template inside the source code whenever you launch.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Commented HTML Template Note for the User -->
+            <!-- 
+                ======================================================================
+                FUTURE PROJECT CARD TEMPLATE (UNCOMMENT & COPY INTO ANY SLOT ABOVE):
+                ======================================================================
+                <div class="bento-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-neonCyan">FULL-STACK / AI</span>
+                        <h3 class="font-display font-bold text-xl text-white mt-1">My Awesome Project Title</h3>
+                        <p class="text-sm text-slate-300 mt-2">Brief description of the problem solved and architecture used.</p>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-white/10 flex justify-between items-center text-xs">
+                        <span class="font-mono text-slate-400">Express.js • Python</span>
+                        <a href="#" class="text-neonCyan hover:underline">Live Demo →</a>
+                    </div>
+                </div>
+            -->
+        </section>
+
+        <!-- ========================================================================
+             SECTION 05: CONTACT & LOCAL EXPRESS.JS FOLDER EXPORT
+             ======================================================================== -->
+        <section id="contact" class="scroll-mt-28">
+            <div class="bento-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+                <div class=" -top-24 -right-24 w-72 h-72 bg-gradient-to-br from-neonCyan/20 via-neonViolet/20 to-neonPink/20 rounded-full blur-3xl pointer-events-none absolute"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neonCyan">
+                            <span>// 05. LET'S CONNECT</span>
+                        </div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">
+                            Ready to collaborate on <span class="text-gradient-vibrant">AI &amp; Engineering?</span>
+                        </h2>
+                        <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed">
+                            Whether it's LLM evaluation, RLHF data engineering, software internships, or full-stack collaborations, feel free to drop a message.
+                        </p>
+
+                        <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <a id="contact-mailto-link" href="mailto:aarav.sen.dev@example.com" class="px-6 py-3.5 rounded-2xl font-display font-semibold text-sm bg-gradient-to-r from-neonCyan via-neonViolet to-neonPink text-slate-950 hover:opacity-95 transition flex items-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span id="contact-email-btn-text">aarav.sen.dev@example.com</span>
+                            </a>
+
+                            <button onclick="openModal('express-modal')" class="px-5 py-3.5 rounded-2xl font-mono text-xs bg-white/5 hover:bg-white/10 text-white border border-white/15 transition flex items-center gap-2">
+                                <i class="fa-solid fa-folder-tree text-neonCyan"></i>
+                                <span>Setup ~/Users/portfolio Folder</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Interactive Message Box (Single-Page Mock Sender) -->
+                    <div class="lg:col-span-5 bg-slate-950/70 border border-white/10 rounded-2xl p-5 space-y-3">
+                        <div class="text-xs font-mono text-slate-400 flex items-center justify-between">
+                            <span>QUICK PING // EXPRESS.JS API READY</span>
+                            <span class="text-emerald-400">● ONLINE</span>
+                        </div>
+                        <input id="quick-msg-name" type="text" placeholder="Your Name or Organization" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-neonCyan" />
+                        <textarea id="quick-msg-body" rows="2" placeholder="Write a quick note..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-sm text-white focus:outline-none focus:border-neonCyan"></textarea>
+                        <button onclick="handleQuickPing()" class="w-full py-2.5 rounded-xl font-display font-semibold text-xs bg-white/10 hover:bg-neonCyan hover:text-slate-950 text-white transition">
+                            Send Instant Ping
+                        </button>
+                        <div id="ping-feedback" class="hidden text-xs font-mono text-emerald-400 text-center pt-1"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================================
+         FIXED 3D STICK FIGURE WALKING STAGE (LEFT -> RIGHT ON SCROLL TOP -> BOTTOM)
+         ============================================================================ -->
+    <div id="walker-speech-bubble" class="px-3.5 py-1.5 rounded-2xl bg-slate-900/95 border border-neonCyan/50 shadow-[0_0_25px_rgba(0,242,254,0.25)] text-xs font-mono text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span>
+        <span id="walker-speech-text">👋 Scroll down to walk me across the portfolio!</span>
+    </div>
+
+    <div id="walker-stage-container">
+        <!-- Subtle Neon Ground Track Line -->
+        <div class="absolute bottom-6 left-6 right-6 h-[2px] bg-gradient-to-r from-neonCyan/40 via-neonViolet/50 to-neonPink/40 pointer-events-none"></div>
+        <div class="absolute bottom-2 left-6 right-6 flex justify-between text-[10px] font-mono text-slate-400 pointer-events-none">
+            <span>START [01. INTRO]</span>
+            <span class="hidden sm:inline">[02. AI EXPERIENCE]</span>
+            <span class="hidden sm:inline">[03. B.TECH CSE]</span>
+            <span class="hidden sm:inline">[04. PROJECTS]</span>
+            <span>FINISH [05. CONTACT]</span>
+        </div>
+        <!-- Three.js WebGL Canvas -->
+        <canvas id="walker-canvas" title="Click the 3D Stick Figure to make him jump & wave!"></canvas>
+    </div>
+
+    <!-- ============================================================================
+         MODAL 1: LIVE CUSTOMIZER (CHANGE NAME, EMAIL, UNIVERSITY, AVATAR)
+         ============================================================================ -->
+    <div id="customize-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bento-card rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-neonCyan/40 space-y-5">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-neonCyan"></i>
+                    <span>Quick Personalize Portfolio</span>
+                </h3>
+                <button onclick="closeModal('customize-modal')" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Test your own details live right here, or edit the <code class="text-neonCyan font-mono">PORTFOLIO_CONFIG</code> object at the top of <code class="text-neonCyan font-mono">index.html</code>.
+            </p>
+
+            <div class="space-y-3.5 text-sm">
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">YOUR NAME</label>
+                    <input id="input-custom-name" type="text" value="Aarav Sen" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-white/15 text-white focus:border-neonCyan focus:outline-none" />
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">YOUR EMAIL</label>
+                    <input id="input-custom-email" type="email" value="aarav.sen.dev@example.com" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-white/15 text-white focus:border-neonCyan focus:outline-none" />
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">UNIVERSITY NAME (3RD YEAR B.TECH CSE)</label>
+                    <input id="input-custom-uni" type="text" value="Apex Institute of Technology & Engineering" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-white/15 text-white focus:border-neonCyan focus:outline-none" />
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button onclick="closeModal('customize-modal')" class="px-4 py-2 rounded-xl text-xs font-mono text-slate-300 hover:bg-white/5">Cancel</button>
+                <button onclick="applyLiveCustomization()" class="px-5 py-2.5 rounded-xl text-xs font-display font-semibold bg-gradient-to-r from-neonCyan to-neonViolet text-slate-950">
+                    Apply Changes Live
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================================
+         MODAL 2: USERS/PORTFOLIO FOLDER & EXPRESS.JS SERVER SETUP
+         ============================================================================ -->
+    <div id="express-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bento-card rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-emerald-400/40 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-brands fa-node-js text-emerald-400"></i>
+                    <span>Users/portfolio Folder &amp; Express.js Server</span>
+                </h3>
+                <button onclick="closeModal('express-modal')" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+                To host this portfolio inside your <code class="text-neonCyan font-mono">Users/&lt;YourUsername&gt;/portfolio</code> directory using <strong class="text-white">Express.js</strong>, run the commands below or copy the ready-made <code class="text-emerald-300 font-mono">server.js</code>:
+            </p>
+
+            <!-- Step 1: Folder Structure -->
+            <div class="bg-slate-950/90 rounded-2xl p-4 border border-white/10 font-mono text-xs text-slate-300 space-y-1">
+                <div class="text-neonCyan mb-1">// 1. Folder Structure inside your Users folder:</div>
+                <div>~/portfolio/</div>
+                <div>├── package.json</div>
+                <div>├── server.js</div>
+                <div>└── public/</div>
+                <div>    └── index.html   <span class="text-emerald-400">&lt;-- (Save this file here)</span></div>
+            </div>
+
+            <!-- Step 2: Express.js server.js code -->
+            <div class="bg-slate-950/90 rounded-2xl p-4 border border-white/10 font-mono text-xs text-slate-200 overflow-x-auto">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-emerald-400">// 2. server.js (Express.js Single-Page Portfolio Server)</span>
+                    <button onclick="copyServerCode()" id="copy-server-btn" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-[11px] text-white">Copy server.js</button>
+                </div>
+<pre id="express-server-code" class="text-[11px] leading-relaxed text-slate-300">const express = require('express');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware for JSON & serving static assets from /public
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Single-page portfolio entry route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Optional API endpoint for the portfolio Contact Ping form
+app.post('/api/ping', (req, res) => {
+    const { name, message } = req.body;
+    console.log(`[Portfolio Ping] From: ${name} | Msg: ${message}`);
+    res.json({ status: 'success', receivedAt: new Date().toISOString() });
+});
+
+app.listen(PORT, () => {
+    console.log(`🚀 Portfolio running at http://localhost:${PORT}`);
+});</pre>
+            </div>
+
+            <!-- Step 3: Terminal Quick Start -->
+            <div class="bg-slate-950/90 rounded-2xl p-4 border border-white/10 font-mono text-xs text-slate-300">
+                <div class="text-neonPink mb-1">// 3. Run in Terminal:</div>
+                <code>mkdir -p ~/portfolio/public &amp;&amp; cd ~/portfolio &amp;&amp; npm init -y &amp;&amp; npm install express &amp;&amp; node server.js</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================================
+         JAVASCRIPT: ANIME SVG PRESETS, UI INTERACTIVITY & THREE.JS 3D STICKMAN
+         ============================================================================ -->
+    <script>
+        /* --------------------------------------------------------------------------
+           1. HIGH-CONTRAST ANIME / MANGA CIRCULAR AVATAR ILLUSTRATIONS (SVG DATA URIs)
+           -------------------------------------------------------------------------- */
+        const ANIME_AVATAR_PRESETS = {
+            // Preset 1: High-Contrast Cyber Manga Ink Illustration
+            manga_cyber: `data:image/svg+xml;utf8,` + encodeURIComponent(`
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <defs>
+                        <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#090d1e"/>
+                            <stop offset="50%" stop-color="#1e1b4b"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                        <linearGradient id="neonRim" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#00f2fe"/>
+                            <stop offset="100%" stop-color="#ff4b8b"/>
+                        </linearGradient>
+                        <pattern id="screentone" width="8" height="8" patternUnits="userSpaceOnUse">
+                            <circle cx="2" cy="2" r="1.2" fill="rgba(255,255,255,0.12)"/>
+                        </pattern>
+                    </defs>
+                    <rect width="400" height="400" fill="url(#bg1)"/>
+                    <rect width="400" height="400" fill="url(#screentone)"/>
+                    <!-- Glowing Cyber Halo -->
+                    <circle cx="200" cy="195" r="135" fill="none" stroke="url(#neonRim)" stroke-width="3" stroke-dasharray="14 8" opacity="0.75"/>
+                    <!-- Shoulders / Techwear Collar -->
+                    <path d="M70 400 L115 300 L165 280 L235 280 L285 300 L330 400 Z" fill="#0b0f19" stroke="#00f2fe" stroke-width="3"/>
+                    <path d="M150 285 L200 355 L250 285" fill="none" stroke="#ff4b8b" stroke-width="3"/>
+                    <!-- Neck & Chin Shadow -->
+                    <path d="M175 245 L175 305 L225 305 L225 245 Z" fill="#e2e8f0"/>
+                    <path d="M175 255 Q200 285 225 255 Z" fill="#0f172a"/>
+                    <!-- Anime Face Contour -->
+                    <path d="M135 150 Q135 235 200 265 Q265 235 265 150 Z" fill="#f8fafc" stroke="#0f172a" stroke-width="4"/>
+                    <!-- Manga Shading Hatching on Cheek -->
+                    <path d="M142 190 L162 200 M144 200 L165 210 M148 210 L168 220" stroke="#475569" stroke-width="2"/>
+                    <!-- Sharp Anime Eyes (Glowing Cyan & Pink) -->
+                    <g>
+                        <path d="M148 175 L188 180 L182 193 L152 190 Z" fill="#0f172a"/>
+                        <circle cx="170" cy="184" r="5" fill="#00f2fe"/>
+                        <circle cx="168" cy="182" r="2" fill="#ffffff"/>
+                        <path d="M144 166 L190 173" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+
+                        <path d="M252 175 L212 180 L218 193 L248 190 Z" fill="#0f172a"/>
+                        <circle cx="230" cy="184" r="5" fill="#ff4b8b"/>
+                        <circle cx="228" cy="182" r="2" fill="#ffffff"/>
+                        <path d="M256 166 L210 173" stroke="#0f172a" stroke-width="4" stroke-linecap="round"/>
+                    </g>
+                    <!-- Nose & Confident Smirk -->
+                    <path d="M198 202 L203 213 L196 215" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M184 234 Q202 241 218 231" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Spiky Manga Hair -->
+                    <path d="M115 175 L95 130 L130 120 L118 75 L165 95 L185 50 L215 90 L255 55 L260 100 L305 85 L280 135 L310 165 L270 155 L260 185 L245 140 L215 170 L200 130 L175 175 L155 135 L135 180 Z" fill="#090b10" stroke="#00f2fe" stroke-width="2.5"/>
+                </svg>
+            `),
+            // Preset 2: Neon Shonen Visor Style
+            neon_shonen: `data:image/svg+xml;utf8,` + encodeURIComponent(`
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <defs>
+                        <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#2e1065"/>
+                            <stop offset="100%" stop-color="#090d16"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="400" height="400" fill="url(#bg2)"/>
+                    <circle cx="200" cy="200" r="150" fill="rgba(255,75,139,0.12)"/>
+                    <path d="M80 400 L125 295 L275 295 L320 400 Z" fill="#1e1b4b" stroke="#ff4b8b" stroke-width="3"/>
+                    <path d="M135 150 Q135 240 200 268 Q265 240 265 150 Z" fill="#fef2f2" stroke="#1e1b4b" stroke-width="4"/>
+                    <!-- Cyber Visor Glasses -->
+                    <path d="M135 168 L265 168 L255 202 L210 202 L200 188 L190 202 L145 202 Z" fill="#00f2fe" opacity="0.88" stroke="#ffffff" stroke-width="3"/>
+                    <path d="M155 175 L180 195" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M185 235 Q200 244 218 233" fill="none" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- White/Silver Anime Hair -->
+                    <path d="M110 175 L90 120 L140 110 L135 60 L185 90 L210 45 L240 90 L290 65 L275 120 L315 155 L265 155 L245 125 L205 160 L165 125 L135 170 Z" fill="#f1f5f9" stroke="#8b5cf6" stroke-width="3"/>
+                </svg>
+            `),
+            // Preset 3: Minimalist High-Contrast Black & White Manga Ink
+            dark_seinen: `data:image/svg+xml;utf8,` + encodeURIComponent(`
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <rect width="400" height="400" fill="#09090b"/>
+                    <circle cx="200" cy="200" r="145" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+                    <path d="M75 400 L120 290 L280 290 L325 400 Z" fill="#18181b" stroke="#ffffff" stroke-width="3"/>
+                    <path d="M138 145 Q138 238 200 266 Q262 238 262 145 Z" fill="#ffffff" stroke="#09090b" stroke-width="4"/>
+                    <!-- Intense Manga Eyes -->
+                    <path d="M150 180 L188 183 L184 194 L154 192 Z" fill="#09090b"/>
+                    <circle cx="171" cy="187" r="3.5" fill="#ffffff"/>
+                    <path d="M250 180 L212 183 L216 194 L246 192 Z" fill="#09090b"/>
+                    <circle cx="229" cy="187" r="3.5" fill="#ffffff"/>
+                    <path d="M188 236 L214 234" stroke="#09090b" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Dark Ink Hair -->
+                    <path d="M112 185 L95 125 L135 115 L130 65 L180 95 L205 45 L235 95 L285 70 L275 125 L308 170 L262 150 L240 130 L200 172 L162 130 L138 175 Z" fill="#09090b" stroke="#ffffff" stroke-width="2.5"/>
+                </svg>
+            `)
+        };
+
+        function setAnimePreset(presetKey) {
+            const imgEl = document.getElementById('profile-avatar-img');
+            if (ANIME_AVATAR_PRESETS[presetKey]) {
+                imgEl.src = ANIME_AVATAR_PRESETS[presetKey];
+            }
+        }
+
+        // Allow user to upload any local photo and preview in the circular frame immediately
+        function handleAvatarUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-avatar-img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        /* --------------------------------------------------------------------------
+           2. INITIALIZE PORTFOLIO FROM `PORTFOLIO_CONFIG`
+           -------------------------------------------------------------------------- */
+        function renderPortfolioConfig() {
+            document.getElementById('nav-name').textContent = PORTFOLIO_CONFIG.name;
+            document.getElementById('hero-name').textContent = PORTFOLIO_CONFIG.name;
+            document.getElementById('hero-role-badge').textContent = PORTFOLIO_CONFIG.roleBadge;
+            document.getElementById('hero-headline-prefix').textContent = PORTFOLIO_CONFIG.headlinePrefix;
+            document.getElementById('hero-headline-gradient').textContent = PORTFOLIO_CONFIG.headlineGradient;
+            document.getElementById('hero-uni-inline').textContent = PORTFOLIO_CONFIG.university;
+            document.getElementById('hero-email-text').textContent = PORTFOLIO_CONFIG.email;
+            document.getElementById('edu-uni-name').textContent = PORTFOLIO_CONFIG.university;
+            document.getElementById('contact-email-btn-text').textContent = PORTFOLIO_CONFIG.email;
+            document.getElementById('contact-mailto-link').href = `mailto:${PORTFOLIO_CONFIG.email}`;
+
+            // Set initial circular avatar
+            if (ANIME_AVATAR_PRESETS[PORTFOLIO_CONFIG.avatarPreset]) {
+                setAnimePreset(PORTFOLIO_CONFIG.avatarPreset);
+            } else {
+                document.getElementById('profile-avatar-img').src = PORTFOLIO_CONFIG.avatarPreset;
+            }
+        }
+
+        function applyLiveCustomization() {
+            const newName = document.getElementById('input-custom-name').value.trim();
+            const newEmail = document.getElementById('input-custom-email').value.trim();
+            const newUni = document.getElementById('input-custom-uni').value.trim();
+
+            if (newName) PORTFOLIO_CONFIG.name = newName;
+            if (newEmail) PORTFOLIO_CONFIG.email = newEmail;
+            if (newUni) PORTFOLIO_CONFIG.university = newUni;
+
+            renderPortfolioConfig();
+            closeModal('customize-modal');
+        }
+
+        /* --------------------------------------------------------------------------
+           3. CLIPBOARD, MODALS & SAMPLE FUTURE PROJECT PREVIEW
+           -------------------------------------------------------------------------- */
+        function copyEmailToClipboard() {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = PORTFOLIO_CONFIG.email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const badge = document.getElementById('copy-badge');
+            badge.textContent = 'Copied!';
+            setTimeout(() => { badge.textContent = 'Copy'; }, 2000);
+        }
+
+        function copyServerCode() {
+            const codeText = document.getElementById('express-server-code').innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = codeText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btn = document.getElementById('copy-server-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy server.js'; }, 2000);
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        let isSamplePreviewActive = false;
+        function toggleSampleProjectPreview() {
+            const slot1 = document.getElementById('project-slot-1');
+            const btn = document.getElementById('sample-project-btn');
+            isSamplePreviewActive = !isSamplePreviewActive;
+
+            if (isSamplePreviewActive) {
+                btn.innerHTML = `<i class="fa-solid fa-rotate-left"></i><span>Reset to Empty Slot</span>`;
+                slot1.className = "bento-card rounded-3xl p-7 min-h-[290px] flex flex-col justify-between text-left border border-neonCyan/50";
+                slot1.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between text-xs font-mono text-neonCyan mb-2">
+                            <span>SAMPLE_PREVIEW // AI &amp; WEB</span>
+                            <span class="px-2 py-0.5 rounded bg-neonCyan/15 text-neonCyan">v1.0</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white">RLHF Prompt &amp; Response Evaluator</h3>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                            This is a preview of how your card looks once you add a project! Click "Reset to Empty Slot" above to keep the section empty for now.
+                        </p>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+                        <span class="text-slate-400">Express.js • Python • Tailwind</span>
+                        <span class="text-neonCyan">Future Ready →</span>
+                    </div>
+                `;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-eye"></i><span>Preview Sample Filled Slot</span>`;
+                slot1.className = "empty-project-slot rounded-3xl p-7 min-h-[290px] flex flex-col items-center justify-center text-center relative group";
+                slot1.innerHTML = `
+                    <div class="w-14 h-14 rounded-2xl bg-neonCyan/10 border border-neonCyan/30 flex items-center justify-center text-neonCyan text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-[11px] font-mono bg-white/5 text-neonCyan border border-white/10 mb-2">
+                        PROJECT_SLOT_01 // EMPTY
+                    </span>
+                    <h3 class="font-display font-bold text-lg text-white">Reserved for Future Project #1</h3>
+                    <p class="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+                        Ready for your first full-stack Express.js, AI tool, or CSE capstone project. Edit <code class="text-neonCyan">#project-slot-1</code> in <code class="text-neonCyan">index.html</code> when ready.
+                    </p>
+                `;
+            }
+        }
+
+        function handleQuickPing() {
+            const nameVal = document.getElementById('quick-msg-name').value.trim() || 'Visitor';
+            const feedback = document.getElementById('ping-feedback');
+            feedback.textContent = `✓ Thanks ${nameVal}! Ping logged locally (Express.js /api/ping ready).`;
+            feedback.classList.remove('hidden');
+            document.getElementById('quick-msg-name').value = '';
+            document.getElementById('quick-msg-body').value = '';
+            setTimeout(() => feedback.classList.add('hidden'), 4000);
+        }
+
+        /* --------------------------------------------------------------------------
+           4. THREE.JS 3D STICK FIGURE WALKING LEFT-TO-RIGHT ON SCROLL
+           -------------------------------------------------------------------------- */
+        function initThreeStickFigureWalker() {
+            const container = document.getElementById('walker-stage-container');
+            const canvas = document.getElementById('walker-canvas');
+            const speechBubble = document.getElementById('walker-speech-bubble');
+            const speechText = document.getElementById('walker-speech-text');
+            const topProgressBar = document.getElementById('top-progress-bar');
+            const scrollPercentStat = document.getElementById('scroll-percent-stat');
+
+            const scene = new THREE.Scene();
+
+            // Perspective camera framed so the stick figure walks cleanly across the full width
+            const camera = new THREE.PerspectiveCamera(35, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 1.35, 6.2);
+            camera.lookAt(0, 1.0, 0);
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                alpha: true,
+                antialias: true
+            });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+            scene.add(ambientLight);
+
+            const cyanLight = new THREE.PointLight(0x00f2fe, 1.6, 15);
+            cyanLight.position.set(-3, 4, 4);
+            scene.add(cyanLight);
+
+            const pinkLight = new THREE.PointLight(0xff4b8b, 1.4, 15);
+            pinkLight.position.set(3, 3, 4);
+            scene.add(pinkLight);
+
+            // Materials for our Cyber 3D Stick Figure
+            const stickMat = new THREE.MeshStandardMaterial({
+                color: 0xf8fafc,
+                roughness: 0.25,
+                metalness: 0.3,
+                emissive: 0x00f2fe,
+                emissiveIntensity: 0.22
+            });
+
+            const jointMat = new THREE.MeshStandardMaterial({
+                color: 0x00f2fe,
+                roughness: 0.2,
+                metalness: 0.5,
+                emissive: 0x00f2fe,
+                emissiveIntensity: 0.55
+            });
+
+            const accentPinkMat = new THREE.MeshStandardMaterial({
+                color: 0xff4b8b,
+                roughness: 0.2,
+                emissive: 0xff4b8b,
+                emissiveIntensity: 0.65
+            });
+
+            // Root group for the Stick Figure
+            const stickFigure = new THREE.Group();
+            scene.add(stickFigure);
+
+            // Hips / Pelvis Center (Y = 1.05)
+            const hipsGroup = new THREE.Group();
+            hipsGroup.position.y = 1.05;
+            stickFigure.add(hipsGroup);
+
+            // Torso (Spine)
+            const torsoGeo = new THREE.CylinderGeometry(0.055, 0.048, 0.68, 16);
+            const torsoMesh = new THREE.Mesh(torsoGeo, stickMat);
+            torsoMesh.position.y = 0.34;
+            hipsGroup.add(torsoMesh);
+
+            // Glowing Core Ring on Chest
+            const coreGeo = new THREE.TorusGeometry(0.09, 0.018, 12, 24);
+            const coreMesh = new THREE.Mesh(coreGeo, accentPinkMat);
+            coreMesh.position.set(0, 0.42, 0);
+            coreMesh.rotation.y = Math.PI / 2;
+            hipsGroup.add(coreMesh);
+
+            // Head Group
+            const headGroup = new THREE.Group();
+            headGroup.position.y = 0.88;
+            hipsGroup.add(headGroup);
+
+            const headGeo = new THREE.SphereGeometry(0.21, 28, 28);
+            const headMesh = new THREE.Mesh(headGeo, stickMat);
+            headGroup.add(headMesh);
+
+            // Cyber Visor on Head (shows which direction the stick figure faces!)
+            const visorGeo = new THREE.BoxGeometry(0.16, 0.07, 0.26);
+            const visorMesh = new THREE.Mesh(visorGeo, jointMat);
+            visorMesh.position.set(0.14, 0.02, 0);
+            headGroup.add(visorMesh);
+
+            // Helper function to build an articulated 2-segment limb (Upper + Lower + Joint Sphere)
+            function createArticulatedLimb(upperLen, lowerLen, radius, isArm) {
+                const rootPivot = new THREE.Group();
+
+                const shoulderOrHipJoint = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.35, 16, 16), jointMat);
+                rootPivot.add(shoulderOrHipJoint);
+
+                const upperGeo = new THREE.CylinderGeometry(radius, radius * 0.9, upperLen, 14);
+                const upperMesh = new THREE.Mesh(upperGeo, stickMat);
+                upperMesh.position.y = -upperLen / 2;
+                rootPivot.add(upperMesh);
+
+                const lowerPivot = new THREE.Group();
+                lowerPivot.position.y = -upperLen;
+                rootPivot.add(lowerPivot);
+
+                const kneeOrElbowJoint = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.25, 16, 16), isArm ? jointMat : accentPinkMat);
+                lowerPivot.add(kneeOrElbowJoint);
+
+                const lowerGeo = new THREE.CylinderGeometry(radius * 0.9, radius * 0.8, lowerLen, 14);
+                const lowerMesh = new THREE.Mesh(lowerGeo, stickMat);
+                lowerMesh.position.y = -lowerLen / 2;
+                lowerPivot.add(lowerMesh);
+
+                const endJoint = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.3, 14, 14), jointMat);
+                endJoint.position.y = -lowerLen;
+                lowerPivot.add(endJoint);
+
+                return { rootPivot, lowerPivot };
+            }
+
+            // Left & Right Arms (Attached at top of torso)
+            const leftArm = createArticulatedLimb(0.36, 0.34, 0.038, true);
+            leftArm.rootPivot.position.set(0, 0.64, 0.19);
+            hipsGroup.add(leftArm.rootPivot);
+
+            const rightArm = createArticulatedLimb(0.36, 0.34, 0.038, true);
+            rightArm.rootPivot.position.set(0, 0.64, -0.19);
+            hipsGroup.add(rightArm.rootPivot);
+
+            // Left & Right Legs (Attached at hips)
+            const leftLeg = createArticulatedLimb(0.48, 0.48, 0.045, false);
+            leftLeg.rootPivot.position.set(0, 0, 0.11);
+            hipsGroup.add(leftLeg.rootPivot);
+
+            const rightLeg = createArticulatedLimb(0.48, 0.48, 0.045, false);
+            rightLeg.rootPivot.position.set(0, 0, -0.11);
+            hipsGroup.add(rightLeg.rootPivot);
+
+            // Glowing Footstep Shadow Ring beneath the stick figure
+            const ringGeo = new THREE.RingGeometry(0.18, 0.28, 32);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+            const groundRing = new THREE.Mesh(ringGeo, ringMat);
+            groundRing.rotation.x = Math.PI / 2;
+            groundRing.position.y = 0.05;
+            stickFigure.add(groundRing);
+
+            // Scroll & Walk State Variables
+            let targetScrollRatio = 0;
+            let currentScrollRatio = 0;
+            let walkCyclePhase = 0;
+            let facingDirection = 1; // +1 = facing Right (walking left-to-right), -1 = facing Left
+            let currentRotationY = 0; // 0 rad faces +X (Right) because visor is on +X
+            let jumpVelocity = 0;
+            let jumpOffset = 0;
+
+            // Compute Visible World X Bounds so the stickman walks from Left edge to Right edge
+            function getWorldXSpan() {
+                const vFOV = THREE.MathUtils.degToRad(camera.fov);
+                const visibleHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
+                const visibleWidth = visibleHeight * camera.aspect;
+                return Math.max(visibleWidth * 0.41, 1.5);
+            }
+
+            // Section Milestones & Speech Bubble Messages
+            function updateSectionSpeechAndNav(ratio) {
+                let message = "👋 Hi! Scroll down to walk me across the portfolio!";
+                let activeSection = "hero";
+
+                if (ratio < 0.18) {
+                    message = "01. Intro // Circular Anime Avatar & Bio!";
+                    activeSection = "hero";
+                } else if (ratio < 0.48) {
+                    message = "02. AI Experience // DataAnnotation • Outlier • micro1";
+                    activeSection = "experience";
+                } else if (ratio < 0.72) {
+                    message = "03. Education // 3rd Year B.Tech CSE Student";
+                    activeSection = "education";
+                } else if (ratio < 0.90) {
+                    message = "04. Future Projects // Empty Slots Ready to Fill!";
+                    activeSection = "projects";
+                } else {
+                    message = "05. Contact // Reached the finish line! Let's connect!";
+                    activeSection = "contact";
+                }
+
+                speechText.textContent = message;
+
+                // Highlight active nav pill
+                document.querySelectorAll('.nav-pill').forEach(el => {
+                    if (el.getAttribute('data-nav') === activeSection) {
+                        el.className = "nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-white bg-white/15 border border-neonCyan/40 transition";
+                    } else {
+                        el.className = "nav-pill px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition";
+                    }
+                });
+            }
+
+            // Listen to Window Scroll
+            function onWindowScroll() {
+                const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+                const newRatio = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+
+                // Detect scroll direction so stickman turns around naturally
+                if (Math.abs(newRatio - targetScrollRatio) > 0.0005) {
+                    facingDirection = (newRatio >= targetScrollRatio) ? 1 : -1;
+                }
+                targetScrollRatio = newRatio;
+
+                // Update top progress bar and stat card
+                const pct = Math.round(newRatio * 100);
+                topProgressBar.style.width = `${pct}%`;
+                scrollPercentStat.textContent = `${pct}% Walked`;
+                updateSectionSpeechAndNav(newRatio);
+            }
+
+            window.addEventListener('scroll', onWindowScroll, { passive: true });
+
+            // Clicking the 3D Stickman triggers a celebratory jump!
+            canvas.addEventListener('click', () => {
+                if (jumpOffset <= 0.01) {
+                    jumpVelocity = 0.11;
+                    speechText.textContent = "🚀 Hop! Keep scrolling or click Customize Info!";
+                }
+            });
+
+            // Handle Responsive Canvas Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            // Main Animation Loop
+            function animateWalker() {
+                requestAnimationFrame(animateWalker);
+
+                // Smoothly interpolate scroll position
+                const deltaScroll = targetScrollRatio - currentScrollRatio;
+                currentScrollRatio += deltaScroll * 0.12;
+
+                // Map scroll [0..1] to X position [-halfSpan .. +halfSpan] (LEFT TO RIGHT!)
+                const halfSpan = getWorldXSpan();
+                const xPos = -halfSpan + (currentScrollRatio * (halfSpan * 2));
+                stickFigure.position.x = xPos;
+
+                // Position HTML speech bubble right above the stick figure
+                const bubbleScreenPct = 10 + (currentScrollRatio * 80);
+                speechBubble.style.left = `${bubbleScreenPct}%`;
+
+                // Calculate movement speed to drive walking leg/arm swing amplitude
+                const speed = Math.abs(deltaScroll);
+                const walkIntensity = Math.min(speed * 38, 1.0);
+
+                // Advance walk cycle proportional to scroll delta + subtle idle breathing
+                walkCyclePhase += Math.abs(deltaScroll) * 58;
+                const idleClock = performance.now() * 0.003;
+
+                // Smoothly turn Stick Figure to face Right (0) when scrolling down, or Left (Math.PI) when scrolling up
+                const targetRotY = facingDirection === 1 ? 0 : Math.PI;
+                currentRotationY += (targetRotY - currentRotationY) * 0.18;
+                stickFigure.rotation.y = currentRotationY;
+
+                // Jump physics if clicked
+                if (jumpOffset > 0 || jumpVelocity > 0) {
+                    jumpOffset += jumpVelocity;
+                    jumpVelocity -= 0.0065;
+                    if (jumpOffset <= 0) {
+                        jumpOffset = 0;
+                        jumpVelocity = 0;
+                    }
+                }
+
+                // Apply realistic sinusoidal walking kinematics (Arms & Legs swing in opposite phase)
+                const swingAngle = Math.sin(walkCyclePhase) * 0.85 * walkIntensity;
+                const oppositeSwing = Math.sin(walkCyclePhase + Math.PI) * 0.85 * walkIntensity;
+
+                // Upper Legs swing around Z axis (since character faces +X)
+                leftLeg.rootPivot.rotation.z = swingAngle;
+                rightLeg.rootPivot.rotation.z = oppositeSwing;
+
+                // Knees bend backward during stride
+                leftLeg.lowerPivot.rotation.z = -Math.max(0, Math.cos(walkCyclePhase) * 0.75 * walkIntensity);
+                rightLeg.lowerPivot.rotation.z = -Math.max(0, Math.cos(walkCyclePhase + Math.PI) * 0.75 * walkIntensity);
+
+                // Arms swing opposite to legs + elbows bend forward
+                leftArm.rootPivot.rotation.z = oppositeSwing * 0.9;
+                rightArm.rootPivot.rotation.z = swingAngle * 0.9;
+                leftArm.lowerPivot.rotation.z = Math.max(0.15, Math.sin(walkCyclePhase + Math.PI) * 0.55 * walkIntensity);
+                rightArm.lowerPivot.rotation.z = Math.max(0.15, Math.sin(walkCyclePhase) * 0.55 * walkIntensity);
+
+                // Vertical body bobbing during walk + idle breathing + click jump
+                const walkBob = Math.abs(Math.cos(walkCyclePhase)) * 0.09 * walkIntensity;
+                const idleBob = Math.sin(idleClock) * 0.025;
+                hipsGroup.position.y = 1.02 + walkBob + idleBob + jumpOffset;
+
+                // Subtle forward lean while walking
+                hipsGroup.rotation.z = -0.12 * walkIntensity;
+                headGroup.rotation.z = Math.sin(idleClock * 1.2) * 0.05;
+
+                // Pulse ground ring
+                groundRing.scale.setScalar(1 + Math.sin(idleClock * 2) * 0.08);
+
+                renderer.render(scene, camera);
+            }
+
+            onWindowScroll();
+            animateWalker();
+        }
+
+        // Start everything once DOM & Window load
+        window.onload = function () {
+            renderPortfolioConfig();
+            initThreeStickFigureWalker();
+        };
+    </script>
+</body>
+</html>
